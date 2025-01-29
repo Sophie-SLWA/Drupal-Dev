@@ -3,7 +3,7 @@ FROM alpine:latest
 ARG PHP_VERSION="84"
 
 # Install our dependancies
-RUN apk add --no-cache mysql-client php${PHP_VERSION}
+RUN apk add --no-cache mysql-client git php${PHP_VERSION}
 # Link the version of PHP we've installed to /usr/bin/php so just running 'php' works
 RUN ln /usr/bin/php${PHP_VERSION} /usr/bin/php
 
@@ -16,7 +16,7 @@ RUN apk add --no-cache php${PHP_VERSION}-dom php${PHP_VERSION}-openssl php${PHP_
 
 # Run the Composer Install Script
 COPY install-composer.sh .
-RUN . install-composer.sh
+RUN . /install-composer.sh
 RUN mv composer.phar /usr/bin/composer
 RUN rm /install-composer.sh
 
