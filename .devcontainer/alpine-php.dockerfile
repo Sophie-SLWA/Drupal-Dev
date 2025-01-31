@@ -17,8 +17,10 @@ RUN apk add --no-cache php${PHP_VERSION}-dom php${PHP_VERSION}-openssl php${PHP_
 # Run the Composer Install Script
 COPY install-composer.sh .
 RUN . /install-composer.sh
+RUN php composer-setup.php --quiet
+run rm composer-setup.php
 RUN mv composer.phar /usr/bin/composer
-RUN rm /install-composer.sh
+#RUN rm /install-composer.sh
 
 # Running this command has issues with timing out on Drush?  may need the timeout extended
 # COMPOSER_PROCESS_TIMEOUT=6000 composer create-project drupal/cms
